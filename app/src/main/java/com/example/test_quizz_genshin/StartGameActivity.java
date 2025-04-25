@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Random;
 
 public class StartGameActivity extends AppCompatActivity {
     TextView tvTimer;
@@ -24,6 +27,8 @@ public class StartGameActivity extends AppCompatActivity {
     HashMap<String, Integer> map = new HashMap<>();
     HashMap<String, Integer> correctImageMap = new HashMap<>();
     HashMap<String, Integer> wrongImageMap = new HashMap<>();
+    HashMap<String, List<String>> correctDialogues = new HashMap<>();
+    HashMap<String, List<String>> wrongDialogues = new HashMap<>();
 
     // An ArrayList for storing technology names only
     ArrayList<String> techList = new ArrayList<>();
@@ -104,6 +109,125 @@ public class StartGameActivity extends AppCompatActivity {
         wrongImageMap.put(techList.get(9), R.drawable.chiori);
 
 
+        // Furina
+        correctDialogues.put("Furina De Fontaine", Arrays.asList(
+                "✅ Oui oui~ You truly admire me, don't you?",
+                "✅ Ah, a perfect fan—you clearly have taste!",
+                "✅ Hehe~ You remembered your Archon well!"
+        ));
+        wrongDialogues.put("Furina De Fontaine", Arrays.asList(
+                "❌ Hmph! How dare you forget the great Furina!",
+                "❌ Tsk! I'm the star of Fontaine, you know!",
+                "❌ You wound me! Surely you jest..."
+        ));
+
+        // Clorinde
+        correctDialogues.put("Clorinde", Arrays.asList(
+                "✅ Sharp eyes, well done.",
+                "✅ That was precise. Just like a good duel.",
+                "✅ You recognize discipline when you see it."
+        ));
+        wrongDialogues.put("Clorinde", Arrays.asList(
+                "❌ I expected more precision from you.",
+                "❌ Careless mistake. That won't do.",
+                "❌ You're not ready for the battlefield."
+        ));
+
+        // Navia
+        correctDialogues.put("Navia", Arrays.asList(
+                "✅ You’ve got a good eye for detail!",
+                "✅ Hehe~ You got it, mon ami!",
+                "✅ Knew you'd get it right. You're clever!"
+        ));
+        wrongDialogues.put("Navia", Arrays.asList(
+                "❌ Oops! I guess I’m more forgettable than I thought?",
+                "❌ Wrong? Come on! I’m not that obscure.",
+                "❌ You missed the mark, partner!"
+        ));
+
+        // Raiden Ei
+        correctDialogues.put("Raiden Ei", Arrays.asList(
+                "✅ Your mind is as sharp as Musou Isshin.",
+                "✅ You honor the Shogun with your memory.",
+                "✅ That was a decisive strike of knowledge."
+        ));
+        wrongDialogues.put("Raiden Ei", Arrays.asList(
+                "❌ Your answer lacks eternity.",
+                "❌ Even lightning misfires, it seems.",
+                "❌ A disappointment. Reflect and grow."
+        ));
+
+        // Hu Tao
+        correctDialogues.put("Hu Tao", Arrays.asList(
+                "✅ Aha! You’re fun~",
+                "✅ Ding ding ding~ Correct answer!",
+                "✅ You're not scared of me, are ya?"
+        ));
+        wrongDialogues.put("Hu Tao", Arrays.asList(
+                "❌ Wrong~ Maybe I’ll haunt your dreams tonight!",
+                "❌ Aww, you forgot me already?",
+                "❌ Boo~ That's not the answer!"
+        ));
+
+        // Kamisato Ayaka
+        correctDialogues.put("Kamisato Ayaka", Arrays.asList(
+                "✅ Thank you for remembering me.",
+                "✅ Your gracefulness is noted.",
+                "✅ Such elegance in your choice."
+        ));
+        wrongDialogues.put("Kamisato Ayaka", Arrays.asList(
+                "❌ Oh... I suppose I am easy to forget.",
+                "❌ Let us strive for better together.",
+                "❌ It’s alright. Everyone makes mistakes."
+        ));
+
+        // Yelan
+        correctDialogues.put("Yelan", Arrays.asList(
+                "✅ Heh. You're sharper than you look.",
+                "✅ Good. You're paying attention.",
+                "✅ Nice call. You’ve done your homework."
+        ));
+        wrongDialogues.put("Yelan", Arrays.asList(
+                "❌ Tsk. I expected more from you.",
+                "❌ You fell for a bluff.",
+                "❌ You’ll need better instincts next time."
+        ));
+
+        // Arlecchino
+        correctDialogues.put("Arlecchino", Arrays.asList(
+                "✅ Heh. You know who you’re dealing with.",
+                "✅ Wise choice. Very wise.",
+                "✅ You’re not completely useless, I see."
+        ));
+        wrongDialogues.put("Arlecchino", Arrays.asList(
+                "❌ You dare misidentify me?",
+                "❌ Tsk... pathetic.",
+                "❌ Wrong. I should burn this quiz down."
+        ));
+
+        // Naganohara Yoimiya
+        correctDialogues.put("Naganohara Yoimiya", Arrays.asList(
+                "✅ Yay~ You got it right!",
+                "✅ Haha! You’re good at this!",
+                "✅ Boom! That’s the right answer!"
+        ));
+        wrongDialogues.put("Naganohara Yoimiya", Arrays.asList(
+                "❌ Oh no! Wrong firework!",
+                "❌ Oopsie! That wasn't me!",
+                "❌ Missed it! Better luck next time!"
+        ));
+
+        // Chiori
+        correctDialogues.put("Chiori", Arrays.asList(
+                "✅ Impeccable taste, darling~",
+                "✅ You noticed the details. Très chic!",
+                "✅ That’s correct—fashion never lies."
+        ));
+        wrongDialogues.put("Chiori", Arrays.asList(
+                "❌ Wrong. That look is a fashion disaster.",
+                "❌ Mon dieu! Do you not recognize beauty?",
+                "❌ Sigh... perhaps you need a makeover."
+        ));
 
 
         // a random question
@@ -118,6 +242,7 @@ public class StartGameActivity extends AppCompatActivity {
         millisUntilFinished = 10000;
         tvTimer.setText("" + (millisUntilFinished / 1000) + "s");
         tvPoints.setText(points + " / " + techList.size());
+        tvResult.setText("");
         generateQuestions(index);
         countDownTimer = new CountDownTimer(millisUntilFinished, 1000) {
             @Override
@@ -202,6 +327,7 @@ public class StartGameActivity extends AppCompatActivity {
             finish();
         } else {
             countDownTimer = null;
+            tvResult.setText("");
             startGame();
         }
     }
@@ -218,13 +344,20 @@ public class StartGameActivity extends AppCompatActivity {
         String answer = ((Button) view).getText().toString().trim();
 
         String correctAnswer = techList.get(index);
-        if(answer.equals(correctAnswer)){
+        Random random = new Random();
+        List<String> dialogList;
+
+        if (answer.equals(correctAnswer)) {
             points++;
             tvPoints.setText(points + " / " + techList.size());
-            tvResult.setText("Good! You did such a great job !!");
+            dialogList = correctDialogues.get(correctAnswer);
+            String randomDialogue = dialogList.get(random.nextInt(dialogList.size()));
+            tvResult.setText(randomDialogue);
             ivShowImage.setImageResource(correctImageMap.get(correctAnswer));
         } else {
-            tvResult.setText("Wrong Answer! You don't remember me ?");
+            dialogList = wrongDialogues.get(correctAnswer);
+            String randomDialogue = dialogList.get(random.nextInt(dialogList.size()));
+            tvResult.setText(randomDialogue);
             ivShowImage.setImageResource(wrongImageMap.get(correctAnswer));
         }
     }
