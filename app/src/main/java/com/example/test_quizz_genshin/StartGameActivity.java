@@ -106,7 +106,7 @@ public class StartGameActivity extends AppCompatActivity {
         wrongImageMap.put(techList.get(6), R.drawable.yelan_wrong);
         wrongImageMap.put(techList.get(7), R.drawable.arlecchino_wrong);
         wrongImageMap.put(techList.get(8), R.drawable.yoimiya_wrong);
-        wrongImageMap.put(techList.get(9), R.drawable.chiori);
+        wrongImageMap.put(techList.get(9), R.drawable.chiori_wrong);
 
 
         // Furina
