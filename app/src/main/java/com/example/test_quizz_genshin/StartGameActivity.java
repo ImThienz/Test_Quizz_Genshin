@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Random;
+import android.util.Log;
 
 public class StartGameActivity extends AppCompatActivity {
     TextView tvTimer;
@@ -39,6 +40,7 @@ public class StartGameActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
 
     long millisUntilFinished;
+    String level = "easy"; // default
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,8 +68,6 @@ public class StartGameActivity extends AppCompatActivity {
         techList.add("Naganohara Yoimiya");
         techList.add("Chiori");
 
-
-
         // Put all the technology names with technology image resource ids in map.
         map.put(techList.get(0), R.drawable.furina);
         map.put(techList.get(1), R.drawable.clorinde);
@@ -80,9 +80,6 @@ public class StartGameActivity extends AppCompatActivity {
         map.put(techList.get(8), R.drawable.yoimiya);
         map.put(techList.get(9), R.drawable.chiori);
 
-
-
-
         correctImageMap.put(techList.get(0), R.drawable.furina_right);
         correctImageMap.put(techList.get(1), R.drawable.clorinde_right);
         correctImageMap.put(techList.get(2), R.drawable.navia_right);
@@ -94,9 +91,6 @@ public class StartGameActivity extends AppCompatActivity {
         correctImageMap.put(techList.get(8), R.drawable.yoimiya_right);
         correctImageMap.put(techList.get(9), R.drawable.chiori_right);
 
-
-
-
         wrongImageMap.put(techList.get(0), R.drawable.furina_wrong);
         wrongImageMap.put(techList.get(1), R.drawable.clorinde_wrong);
         wrongImageMap.put(techList.get(2), R.drawable.navia_wrong);
@@ -107,7 +101,6 @@ public class StartGameActivity extends AppCompatActivity {
         wrongImageMap.put(techList.get(7), R.drawable.arlecchino_wrong);
         wrongImageMap.put(techList.get(8), R.drawable.yoimiya_wrong);
         wrongImageMap.put(techList.get(9), R.drawable.chiori_wrong);
-
 
         // Furina
         correctDialogues.put("Furina De Fontaine", Arrays.asList(
@@ -135,13 +128,13 @@ public class StartGameActivity extends AppCompatActivity {
 
         // Navia
         correctDialogues.put("Navia", Arrays.asList(
-                "✅ You’ve got a good eye for detail!",
+                "✅ You've got a good eye for detail!",
                 "✅ Hehe~ You got it, mon ami!",
                 "✅ Knew you'd get it right. You're clever!"
         ));
         wrongDialogues.put("Navia", Arrays.asList(
-                "❌ Oops! I guess I’m more forgettable than I thought?",
-                "❌ Wrong? Come on! I’m not that obscure.",
+                "❌ Oops! I guess I'm more forgettable than I thought?",
+                "❌ Wrong? Come on! I'm not that obscure.",
                 "❌ You missed the mark, partner!"
         ));
 
@@ -159,12 +152,12 @@ public class StartGameActivity extends AppCompatActivity {
 
         // Hu Tao
         correctDialogues.put("Hu Tao", Arrays.asList(
-                "✅ Aha! You’re fun~",
+                "✅ Aha! You're fun~",
                 "✅ Ding ding ding~ Correct answer!",
                 "✅ You're not scared of me, are ya?"
         ));
         wrongDialogues.put("Hu Tao", Arrays.asList(
-                "❌ Wrong~ Maybe I’ll haunt your dreams tonight!",
+                "❌ Wrong~ Maybe I'll haunt your dreams tonight!",
                 "❌ Aww, you forgot me already?",
                 "❌ Boo~ That's not the answer!"
         ));
@@ -178,26 +171,26 @@ public class StartGameActivity extends AppCompatActivity {
         wrongDialogues.put("Kamisato Ayaka", Arrays.asList(
                 "❌ Oh... I suppose I am easy to forget.",
                 "❌ Let us strive for better together.",
-                "❌ It’s alright. Everyone makes mistakes."
+                "❌ It's alright. Everyone makes mistakes."
         ));
 
         // Yelan
         correctDialogues.put("Yelan", Arrays.asList(
                 "✅ Heh. You're sharper than you look.",
                 "✅ Good. You're paying attention.",
-                "✅ Nice call. You’ve done your homework."
+                "✅ Nice call. You've done your homework."
         ));
         wrongDialogues.put("Yelan", Arrays.asList(
                 "❌ Tsk. I expected more from you.",
                 "❌ You fell for a bluff.",
-                "❌ You’ll need better instincts next time."
+                "❌ You'll need better instincts next time."
         ));
 
         // Arlecchino
         correctDialogues.put("Arlecchino", Arrays.asList(
-                "✅ Heh. You know who you’re dealing with.",
+                "✅ Heh. You know who you're dealing with.",
                 "✅ Wise choice. Very wise.",
-                "✅ You’re not completely useless, I see."
+                "✅ You're not completely useless, I see."
         ));
         wrongDialogues.put("Arlecchino", Arrays.asList(
                 "❌ You dare misidentify me?",
@@ -208,8 +201,8 @@ public class StartGameActivity extends AppCompatActivity {
         // Naganohara Yoimiya
         correctDialogues.put("Naganohara Yoimiya", Arrays.asList(
                 "✅ Yay~ You got it right!",
-                "✅ Haha! You’re good at this!",
-                "✅ Boom! That’s the right answer!"
+                "✅ Haha! You're good at this!",
+                "✅ Boom! That's the right answer!"
         ));
         wrongDialogues.put("Naganohara Yoimiya", Arrays.asList(
                 "❌ Oh no! Wrong firework!",
@@ -221,7 +214,7 @@ public class StartGameActivity extends AppCompatActivity {
         correctDialogues.put("Chiori", Arrays.asList(
                 "✅ Impeccable taste, darling~",
                 "✅ You noticed the details. Très chic!",
-                "✅ That’s correct—fashion never lies."
+                "✅ That's correct—fashion never lies."
         ));
         wrongDialogues.put("Chiori", Arrays.asList(
                 "❌ Wrong. That look is a fashion disaster.",
@@ -229,26 +222,41 @@ public class StartGameActivity extends AppCompatActivity {
                 "❌ Sigh... perhaps you need a makeover."
         ));
 
+        // Get level from intent
+        if (getIntent() != null && getIntent().hasExtra("level")) {
+            level = getIntent().getStringExtra("level");
+        }
 
-        // a random question
-        Collections.shuffle(techList);
-        millisUntilFinished = 10000;
+        // Set millisUntilFinished based on level
+        switch (level) {
+            case "easy":
+                millisUntilFinished = 10000;
+                break;
+            case "medium":
+                millisUntilFinished = 6000;
+                break;
+            case "hard":
+                millisUntilFinished = 4000;
+                break;
+            default:
+                millisUntilFinished = 10000;
+        }
+
         points = 0;
         startGame();
     }
 
     private void startGame() {
-        // Initialize millisUntilFinished with 10 seconds.
-        millisUntilFinished = 10000;
-        tvTimer.setText("" + (millisUntilFinished / 1000) + "s");
-        tvPoints.setText(points + " / " + techList.size());
+        // Use millisUntilFinished as set in onCreate
+        tvTimer.setText(getString(R.string.timer_seconds, millisUntilFinished / 1000));
+        tvPoints.setText(getString(R.string.score_format, points, techList.size()));
         tvResult.setText("");
         generateQuestions(index);
         countDownTimer = new CountDownTimer(millisUntilFinished, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // Update tvTimer every 1 second to show the number of seconds remaining.
-                tvTimer.setText("" + (millisUntilFinished / 1000) + "s");
+                tvTimer.setText(getString(R.string.timer_seconds, millisUntilFinished / 1000));
             }
 
             @Override
@@ -277,7 +285,7 @@ public class StartGameActivity extends AppCompatActivity {
 
     private void generateQuestions(int index) {
         // Clone techList to a new ArrayList called techListTemp.
-        ArrayList<String> techListTemp = (ArrayList<String>) techList.clone();
+        ArrayList<String> techListTemp = new ArrayList<>(techList);
         String correctAnswer = techList.get(index);
 
         // Shuffle it and get first three elements from it.
@@ -296,7 +304,14 @@ public class StartGameActivity extends AppCompatActivity {
         btn2.setText(newList.get(1));
         btn3.setText(newList.get(2));
         btn4.setText(newList.get(3));
-        ivShowImage.setImageResource(map.get(techList.get(index)));
+
+        Integer imageRes = map.get(techList.get(index));
+        if (imageRes != null) {
+            ivShowImage.setImageResource(imageRes);
+        } else {
+            // Optional: show a default image or do nothing
+            Log.e("StartGameActivity", "Image resource is null for: " + techList.get(index));
+        }
     }
 
     public void nextQuestion(View view) {

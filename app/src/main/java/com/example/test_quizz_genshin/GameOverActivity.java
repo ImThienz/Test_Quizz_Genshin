@@ -36,7 +36,7 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     public void restart(View view) {
-        Intent intent = new Intent(GameOverActivity.this, StartGameActivity.class);
+        Intent intent = new Intent(GameOverActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

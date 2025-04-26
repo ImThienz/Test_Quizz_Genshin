@@ -20,15 +20,67 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="@drawable/play"
-        android:onClick="startGame" />
+        android:background="@drawable/play" />
+
+    <!-- Start Game -->
     <Button
+        android:id="@+id/btnStartGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play Now"
+        android:text="Start Game"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:textSize="30sp"
         android:background="@drawable/button_square"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         app:backgroundTint="@null"
-        android:onClick="startGame" />
+        android:onClick="toggleLevelButtons" />
+
+    <!-- Level Selection -->
+    <LinearLayout
+        android:id="@+id/levelButtonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnEasy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy (10s)"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_square"
+            app:backgroundTint="@null"
+            android:onClick="startGameEasy" />
+
+        <Button
+            android:id="@+id/btnMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium (6s)"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_square"
+            app:backgroundTint="@null"
+            android:onClick="startGameMedium" />
+
+        <Button
+            android:id="@+id/btnHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard (4s)"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_square"
+            app:backgroundTint="@null"
+            android:onClick="startGameHard" />
+    </LinearLayout>
+
 </LinearLayout>
