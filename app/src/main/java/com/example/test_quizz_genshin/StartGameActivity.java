@@ -242,6 +242,8 @@ public class StartGameActivity extends AppCompatActivity {
                 millisUntilFinished = 10000;
         }
 
+        // a random question
+        Collections.shuffle(techList);
         points = 0;
         startGame();
     }
@@ -270,6 +272,8 @@ public class StartGameActivity extends AppCompatActivity {
                     btn2.setVisibility(View.GONE);
                     btn3.setVisibility(View.GONE);
                     btn4.setVisibility(View.GONE);
+                    // Clear the dialogue
+                    tvResult.setText("");
                     // Go to GameOver screen with points using an Intent
                     Intent intent = new Intent(StartGameActivity.this, GameOverActivity.class);
                     intent.putExtra("points", points);
@@ -335,6 +339,8 @@ public class StartGameActivity extends AppCompatActivity {
             btn2.setVisibility(View.GONE);
             btn3.setVisibility(View.GONE);
             btn4.setVisibility(View.GONE);
+            // Clear the dialogue
+            tvResult.setText("");
             // Go to GameOver screen with points
             Intent intent = new Intent(StartGameActivity.this, GameOverActivity.class);
             intent.putExtra("points", points);
